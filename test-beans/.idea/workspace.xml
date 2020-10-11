@@ -30,9 +30,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../testWarApp" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -51,7 +51,7 @@
       <workItem from="1602245147582" duration="1187000" />
       <workItem from="1602262250307" duration="905000" />
       <workItem from="1602312886067" duration="2729000" />
-      <workItem from="1602398584798" duration="576000" />
+      <workItem from="1602398584798" duration="4303000" />
     </task>
     <servers />
   </component>
@@ -59,6 +59,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="275" y="23" key="#Project_Structure" timestamp="1602414734929">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="23" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1602414734929" />
     <state x="463" y="120" key="FileChooserDialogImpl" timestamp="1602320535237">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

@@ -2,11 +2,12 @@ package model;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
 @Builder
-public class Model {
+public class Model implements Serializable {
 
     private int personId;
     private String lastName;
