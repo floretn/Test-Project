@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="test-dao">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../test-dao/out/artifacts/test_dao_jar/test-dao.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
