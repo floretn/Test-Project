@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="test-dao:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8dcace15-be49-4e54-ba92-76bf16ae4e77" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hGba8uvk8XxqlnPXOHk9TMg7ZS" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test-ui" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="com.hotswap.agent.plugin.settings.HotSwapAgentPluginSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="example" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Methods" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.Methods" />
+      <module name="test-dao" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Methods" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8dcace15-be49-4e54-ba92-76bf16ae4e77" name="Default Changelist" comment="" />
+      <created>1599640436385</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599640436385</updated>
+      <workItem from="1599640440794" duration="311000" />
+      <workItem from="1599640923215" duration="4409000" />
+      <workItem from="1599900032749" duration="1463000" />
+      <workItem from="1600423040981" duration="1764000" />
+      <workItem from="1600445130087" duration="7569000" />
+      <workItem from="1600497281379" duration="2694000" />
+      <workItem from="1600700344967" duration="4398000" />
+      <workItem from="1600704978554" duration="1316000" />
+      <workItem from="1600766777428" duration="7987000" />
+      <workItem from="1600964688617" duration="9861000" />
+      <workItem from="1601041876590" duration="1663000" />
+      <workItem from="1601241063149" duration="1948000" />
+      <workItem from="1601577930339" duration="6543000" />
+      <workItem from="1601629768628" duration="389000" />
+      <workItem from="1601630451973" duration="3936000" />
+      <workItem from="1601644770955" duration="6921000" />
+      <workItem from="1601658099146" duration="616000" />
+      <workItem from="1601715328855" duration="1099000" />
+      <workItem from="1602067986891" duration="5249000" />
+      <workItem from="1602157311212" duration="1238000" />
+      <workItem from="1602182944142" duration="300000" />
+      <workItem from="1602231635076" duration="1188000" />
+      <workItem from="1602245147554" duration="1187000" />
+      <workItem from="1602262250738" duration="905000" />
+      <workItem from="1602312882517" duration="2641000" />
+      <workItem from="1602323070841" duration="1243000" />
+      <workItem from="1602398532580" duration="5931000" />
+      <workItem from="1602516944050" duration="2596000" />
+      <workItem from="1602580236827" duration="1370000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="453" y="66" key="#com.intellij.ide.util.MemberChooser" timestamp="1600970436319">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="453" y="66" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1600970436319" />
+    <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600969827365">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1600969827365" />
+    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602068872998">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1602068872998" />
+    <state x="389" y="106" key="FileChooserDialogImpl" timestamp="1602524631737">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="389" y="106" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1602524631737" />
+    <state width="1367" height="102" key="GridCell.Tab.0.bottom" timestamp="1602071346161">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="102" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1602071346161" />
+    <state width="1367" height="102" key="GridCell.Tab.0.center" timestamp="1602071346161">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="102" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1602071346161" />
+    <state width="1367" height="102" key="GridCell.Tab.0.left" timestamp="1602071346160">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="102" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1602071346160" />
+    <state width="1367" height="102" key="GridCell.Tab.0.right" timestamp="1602071346161">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="102" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1602071346161" />
+    <state x="163" y="0" key="SettingsEditor" timestamp="1602415165915">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="163" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1602415165915" />
+    <state x="65" y="67" key="new project wizard" timestamp="1602068606047">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="65" y="67" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1602068606047" />
+    <state x="346" y="49" key="search.everywhere.popup" timestamp="1600776767858">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1600776767858" />
+  </component>
+</project>

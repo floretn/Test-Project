@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Работа с Базой Данных</title>
+</h:head>
+<h:body>
+
+    #{bean.msg}
+
+    <h:form>
+
+        <p:commandButton value="Упорядочить по дате рождения" id="sort" action="#{bean.sort()}" ajax="false"/>
+
+        <p:commandButton value="Добавить информацию о новом человеке" id="insertBtn" ajax="true"/>
+
+        <br/>
+
+        <p:dataTable var="person" value="#{bean.models}">
+
+            <p:column headerText="id">
+                <h:outputText value="#{person.personId}" />
+            </p:column>
+
+            <p:column headerText="Фамилия">
+                <h:outputText value="#{person.lastName}" />
+            </p:column>
+
+            <p:column headerText="Имя">
+                <h:outputText value="#{person.firstName}" />
+            </p:column>
+
+            <p:column headerText="Отчество">
+                <h:outputText value="#{person.patronymic}" />
+            </p:column>
+
+            <p:column headerText="Дата рождения">
+                <h:outputText value="#{person.dateOfBirth}" />
+            </p:column>
+
+            <p:column headerText="Пол">
+                <h:outputText value="#{person.gender}" />
+            </p:column>
+
+            <p:column headerText="Действия">
+                <p:commandButton value="Изменить" id="updateBtn" action="#{bean.prepareForUpdate(person)}" ajax="true"/>
+                <p:commandButton value="Удалить" id="delete" action="#{bean.deletePerson(person)}" ajax="false"/>
+                <p:overlayPanel id="update" for="updateBtn" hideEffect="fade" dynamic="true" modal="true">
+
+                    <h3>Измените данные:</h3>
+
+                    <span class="ui-float-label">
+                    <p:inputText id="float-input_lastName" value="#{person.lastName}" />
+                    <p:outputLabel for="@previous" value="Измените фамилию: " />
+                    </span>
+
+                    <br/><br/>
+
+                    <span class="ui-float-label">
+                    <p:inputText id="float-input_firstName" value="#{person.firstName}" />
+                    <p:outputLabel for="@previous" value="Измените имя: " />
+                    </span>
+
+                    <br/><br/>
+
+                    <span class="ui-float-label">
+                    <p:inputText id="float-input_patronymic" value="#{person.patronymic}" />
+                    <p:outputLabel for="@previous" value="Измените отчество: " />
+                    </span>
+
+                    <br/><br/>
+
+                    <p:outputLabel for="dateBirth" value="Измените дату рождения: " />
+                    <p:datePicker id="dateBirth" value="#{bean.date}" />
+
+                    <br/><br/>
+
+                    <p:outputLabel for="gender" value="Измените пол:" />
+                    <p:selectOneRadio id="gender" value="#{bean.gender}" required="true">
+                        <f:selectItem itemLabel="М" itemValue="#{bean.genderM}" />
+                        <f:selectItem itemLabel="Ж" itemValue="#{bean.genderW}" />
+                    </p:selectOneRadio>
+
+                    <br/><br/>
+
+                    <p:commandButton value="Принять изменения" id="updateDo" action="#{bean.updatePerson(person)}" ajax="false"/>
+
+                </p:overlayPanel>
+            </p:column>
+
+        </p:dataTable>
+
+
+        <p:overlayPanel id="insert" for="insertBtn" hideEffect="fade" dynamic="true" modal="true">
+
+            <h3>Внесите данные:</h3>
+
+            <span class="ui-float-label">
+                    <p:inputText id="float-insert_lastName" value="#{bean.model.lastName}" required="true"/>
+                    <p:outputLabel for="@previous" value="Внесите фамилию: " />
+            </span>
+
+            <br/><br/>
+
+            <span class="ui-float-label">
+                    <p:inputText id="float-insert_firstName" value="#{bean.model.firstName}" required="true"/>
+                    <p:outputLabel for="@previous" value="Внесите имя: "/>
+            </span>
+
+            <br/><br/>
+
+            <span class="ui-float-label">
+                    <p:inputText id="float-insert_patronymic" value="#{bean.model.patronymic}" required="true" />
+                    <p:outputLabel for="@previous" value="Внесите отчество: " />
+            </span>
+
+            <br/><br/>
+
+            <p:outputLabel for="newDateBirth" value="Внесите дату рождения: " required="true"/>
+            <p:datePicker id="newDateBirth" value="#{bean.date}" />
+
+            <br/><br/>
+
+            <p:outputLabel for="newGender" value="Внесите пол:" />
+            <p:selectOneRadio id="newGender" value="#{bean.gender}" required="true">
+                <f:selectItem itemLabel="М" itemValue="#{bean.genderM}" />
+                <f:selectItem itemLabel="Ж" itemValue="#{bean.genderW}" />
+            </p:selectOneRadio>
+
+            <br/><br/>
+
+            <p:commandButton value="Добавить информацию" id="insertDo" update="insert" ajax="false" action="#{bean.insertPerson()}"/>
+        </p:overlayPanel>
+    </h:form>
+</h:body>
+</html>
