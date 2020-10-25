@@ -1,5 +1,6 @@
-package dao;
+package dao.methods;
 
+import dao.mapper.PeopleMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,9 +12,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import model.Model;
+import dao.model.Model;
 
 public class Methods {
 
@@ -41,7 +41,7 @@ public class Methods {
     }
 
     public static void insertPerson(Model person){
-        person.setPersonId(mapper.insertPerson(person));
+        mapper.insertPerson(person);
     }
 
     public static void deletePerson(int id){
@@ -61,7 +61,7 @@ public class Methods {
         list.sort(Comparator.comparing(Model::getDateOfBirth));
     }
 
-    /*
+
     public static void main(String[] args){
         try{
             init();
@@ -72,8 +72,8 @@ public class Methods {
             sort(list);
             System.out.println(list);
             //System.out.println(createDate(1999, 11, 6));
-            person = Model.builder().personId(0).lastName("Софронов").firstName("Иван").patronymic("Евгеньевич").
-                    dateOfBirth(createDate(1999, 11, 6)).gender(Model.Gender.М).build();
+            person = Model.builder().lastName("Софронов").firstName("Иван").patronymic("Евгеньевич").
+                    dateOfBirth(createDate(1999, 11, 6)).gender(model.Model.Gender.М).build();
             insertPerson(person);
             System.out.println(person);
             deletePerson(4);
@@ -83,5 +83,4 @@ public class Methods {
         }
     }
 
-     */
 }

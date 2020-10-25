@@ -30,24 +30,33 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test-ui" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../work_with_JDBC" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="com.hotswap.agent.plugin.settings.HotSwapAgentPluginSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\NIR\test-dao\src\main\resources" />
+      <recent name="D:\NIR\test-dao\src\main\resources\dao\mapper" />
+      <recent name="D:\NIR\test-dao\src\main\resources\dao" />
+      <recent name="D:\NIR\test-dao\src\main\resources\dao.mapper" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="dao.mapper" />
+    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="example" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="Methods" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dao.Methods" />
+      <option name="MAIN_CLASS_NAME" value="dao.methods.Methods" />
       <module name="test-dao" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dao.*" />
+          <option name="PATTERN" value="dao.mapper.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -111,7 +120,18 @@
       <workItem from="1602323070841" duration="1243000" />
       <workItem from="1602398532580" duration="5931000" />
       <workItem from="1602516944050" duration="2596000" />
-      <workItem from="1602580236827" duration="1370000" />
+      <workItem from="1602580236827" duration="2567000" />
+      <workItem from="1602668087457" duration="3179000" />
+      <workItem from="1602776023255" duration="1180000" />
+      <workItem from="1602842301292" duration="571000" />
+      <workItem from="1602920319817" duration="556000" />
+      <workItem from="1603379244857" duration="563000" />
+      <workItem from="1603451646083" duration="8279000" />
+      <workItem from="1603489794486" duration="752000" />
+      <workItem from="1603491227674" duration="983000" />
+      <workItem from="1603524394303" duration="631000" />
+      <workItem from="1603619124437" duration="562000" />
+      <workItem from="1603634692546" duration="7535000" />
     </task>
     <servers />
   </component>
@@ -123,6 +143,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="453" y="66" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1600970436319" />
+    <state x="479" y="224" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1603642848980">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="479" y="224" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728@0.0.1366.728" timestamp="1603642848980" />
     <state x="385" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1600969827365">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -131,26 +155,42 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="112" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1602068872998" />
-    <state x="389" y="106" key="FileChooserDialogImpl" timestamp="1602524631737">
+    <state x="389" y="106" key="FileChooserDialogImpl" timestamp="1602671124805">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="389" y="106" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1602524631737" />
-    <state width="1367" height="102" key="GridCell.Tab.0.bottom" timestamp="1602071346161">
+    <state x="389" y="106" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1602671124805" />
+    <state width="1367" height="141" key="GridCell.Tab.0.bottom" timestamp="1603652037596">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1367" height="102" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1602071346161" />
-    <state width="1367" height="102" key="GridCell.Tab.0.center" timestamp="1602071346161">
+    <state width="1367" height="141" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603652037596" />
+    <state width="1367" height="141" key="GridCell.Tab.0.center" timestamp="1603652037595">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1367" height="102" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1602071346161" />
-    <state width="1367" height="102" key="GridCell.Tab.0.left" timestamp="1602071346160">
+    <state width="1367" height="141" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1603652037595" />
+    <state width="1367" height="141" key="GridCell.Tab.0.left" timestamp="1603652037594">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1367" height="102" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1602071346160" />
-    <state width="1367" height="102" key="GridCell.Tab.0.right" timestamp="1602071346161">
+    <state width="1367" height="141" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1603652037594" />
+    <state width="1367" height="141" key="GridCell.Tab.0.right" timestamp="1603652037595">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1367" height="102" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1602071346161" />
+    <state width="1367" height="141" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1603652037595" />
+    <state width="1367" height="469" key="GridCell.Tab.1.bottom" timestamp="1603644603428">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="469" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603644603428" />
+    <state width="1367" height="469" key="GridCell.Tab.1.center" timestamp="1603644603427">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="469" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1603644603427" />
+    <state width="1367" height="469" key="GridCell.Tab.1.left" timestamp="1603644603426">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="469" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1603644603426" />
+    <state width="1367" height="469" key="GridCell.Tab.1.right" timestamp="1603644603428">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1367" height="469" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1603644603428" />
     <state x="163" y="0" key="SettingsEditor" timestamp="1602415165915">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

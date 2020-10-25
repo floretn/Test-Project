@@ -16,19 +16,21 @@ public class Bean implements Serializable {
 
     private final Model.Gender genderM = Model.Gender.М;
     private final Model.Gender genderW = Model.Gender.Ж;
-    private Model.Gender gender = genderM;
+    private Model.Gender genderForUpdate = genderM;
+    private Model.Gender genderForInsert = genderM;
     private String msg;
     private List<Model> models;
-    private Model model = Model.builder().build();
-    private Date date = new Date();;
-    private boolean checkGender = true;
+    private Model modelForUpdate;
+    private Model modelForInsert;
+    private Date dateForUpdate = new Date();
+    private Date dateForInsert = new Date();
 
-    public Model.Gender getGender() {
-        return gender;
+    public Model.Gender getGenderForUpdate() {
+        return genderForUpdate;
     }
 
-    public void setGender(Model.Gender gender) {
-        this.gender = gender;
+    public void setGenderForUpdate(Model.Gender genderForUpdate) {
+        this.genderForUpdate = genderForUpdate;
     }
 
     public Model.Gender getGenderM() {
@@ -55,40 +57,58 @@ public class Bean implements Serializable {
         this.models = models;
     }
 
-    public Model getModel() {
-        return model;
+    public Model getModelForUpdate() {
+        return modelForUpdate;
     }
 
-    public void setModel(Model model) {
-        this.model = model;
+    public void setModelForUpdate(Model modelForUpdate) {
+        this.modelForUpdate = modelForUpdate;
     }
 
-    public Date getDate() {
-        return date;
+    public Model getModelForInsert() {
+        return modelForInsert;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setModelForInsert(Model modelForInsert) {
+        this.modelForInsert = modelForInsert;
     }
 
-    public boolean isCheckGender() {
-        return checkGender;
+    public Date getDateForUpdate() {
+        return dateForUpdate;
     }
 
-    public void setCheckGender(boolean checkGender) {
-        this.checkGender = checkGender;
+    public void setDateForUpdate(Date dateForUpdate) {
+        this.dateForUpdate = dateForUpdate;
+    }
+
+    public Model.Gender getGenderForInsert() {
+        return genderForInsert;
+    }
+
+    public void setGenderForInsert(Model.Gender genderForInsert) {
+        this.genderForInsert = genderForInsert;
+    }
+
+    public Date getDateForInsert() {
+        return dateForInsert;
+    }
+
+    public void setDateForInsert(Date dateForInsert) {
+        this.dateForInsert = dateForInsert;
     }
 
     @PostConstruct
     private void init() {
         try {
             Methods.init();
+            models = Methods.showAll();
+            modelForUpdate = Model.builder().lastName("").firstName("").patronymic("").build();
+            modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
         } catch (IOException e) {
             msg = "Не удалось подключиться к БД:(";
             return;
         }
-        msg = "";
-        models = Methods.showAll();
+        msg = "Work...";
     }
 
     public void deletePerson(Model person){
@@ -100,36 +120,34 @@ public class Bean implements Serializable {
         Methods.sort(models);
     }
 
-    public void updatePerson(Model person){
-        changeDateAndGender(person);
-        Methods.updatePerson(person.getPersonId(), person);
-        date = new Date();
+    public void updatePerson(){
+        modelForUpdate.setDateOfBirth(new java.sql.Date(dateForUpdate.getTime()));
+        modelForUpdate.setGender(genderForUpdate);
+        Methods.updatePerson(modelForUpdate.getPersonId(), modelForUpdate);
     }
 
     public void insertPerson(){
-        changeDateAndGender(model);
-        models.add(model);
-        Methods.insertPerson(model);
-        model = Model.builder().build();
+        modelForInsert.setDateOfBirth(new java.sql.Date(dateForInsert.getTime()));
+        modelForInsert.setGender(genderForInsert);
+        models.add(modelForInsert);
+        Methods.insertPerson(modelForInsert);
+    }
+
+    public void prepareForInsert(){
+        dateForInsert = new Date();
+        modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
+        genderForInsert = genderM;
     }
 
     public void prepareForUpdate(Model person){
-        date = new Date(person.getDateOfBirth().getTime());
-        gender = person.getGender();
-        //checkGender = person.getGender() == Model.Gender.М;
-    }
-
-    public void changeDateAndGender(Model person){
-        person.setDateOfBirth(new java.sql.Date(date.getTime()));
-        person.setGender(gender);
-        gender = genderM;
-        /*
-        if (checkGender) {
-            person.setGender(Model.Gender.М);
-        }else{
-            person.setGender(Model.Gender.Ж);
-        }
-        checkGender = true;
-        */
+        modelForUpdate.setPersonId(person.getPersonId());
+        modelForUpdate.setLastName("" + person.getLastName());
+        modelForUpdate.setFirstName("" + person.getFirstName());
+        modelForUpdate.setPatronymic("" + person.getPatronymic());
+        modelForUpdate.setDateOfBirth(person.getDateOfBirth());
+        modelForUpdate.setGender(person.getGender());
+        dateForUpdate = new Date(person.getDateOfBirth().getTime());
+        genderForUpdate = person.getGender();
+        System.out.println(modelForUpdate);
     }
 }
