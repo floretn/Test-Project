@@ -1,11 +1,10 @@
 package bean;
 
-import dao.Methods;
+import dao.methods.Methods;
 import model.Model;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +21,11 @@ public class Bean implements Serializable {
     private List<Model> models;
     private Model modelForUpdate;
     private Model modelForInsert;
+    private Model model;
     private Date dateForUpdate = new Date();
     private Date dateForInsert = new Date();
+    private String check = "";
+    private Methods methods;
 
     public Model.Gender getGenderForUpdate() {
         return genderForUpdate;
@@ -97,14 +99,22 @@ public class Bean implements Serializable {
         this.dateForInsert = dateForInsert;
     }
 
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
+
     @PostConstruct
     private void init() {
         try {
-            Methods.init();
-            models = Methods.showAll();
+            methods = new Methods();
+            models = methods.showAll();
             modelForUpdate = Model.builder().lastName("").firstName("").patronymic("").build();
             modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
-        } catch (IOException e) {
+        } catch (Exception e) {
             msg = "Не удалось подключиться к БД:(";
             return;
         }
@@ -112,25 +122,31 @@ public class Bean implements Serializable {
     }
 
     public void deletePerson(Model person){
-        Methods.deletePerson(person.getPersonId());
+        methods.deletePerson(person.getPersonId());
         models.remove(person);
     }
 
     public void sort(){
-        Methods.sort(models);
+        methods.sort(models);
     }
 
     public void updatePerson(){
         modelForUpdate.setDateOfBirth(new java.sql.Date(dateForUpdate.getTime()));
         modelForUpdate.setGender(genderForUpdate);
-        Methods.updatePerson(modelForUpdate.getPersonId(), modelForUpdate);
+        methods.updatePerson(modelForUpdate.getPersonId(), modelForUpdate);
+        models.set(models.indexOf(model), modelForUpdate);
     }
 
     public void insertPerson(){
-        modelForInsert.setDateOfBirth(new java.sql.Date(dateForInsert.getTime()));
-        modelForInsert.setGender(genderForInsert);
-        models.add(modelForInsert);
-        Methods.insertPerson(modelForInsert);
+        if(modelForInsert.getLastName() != null && modelForInsert.getFirstName() != null) {
+            modelForInsert.setDateOfBirth(new java.sql.Date(dateForInsert.getTime()));
+            modelForInsert.setGender(genderForInsert);
+            models.add(modelForInsert);
+            methods.insertPerson(modelForInsert);
+            check = modelForInsert.getLastName() + " " + modelForInsert.getFirstName() + " успешно добавлен!";
+        }else{
+            check = "Фамилия и Имя обязательны для заполнения!";
+        }
     }
 
     public void prepareForInsert(){
@@ -148,6 +164,6 @@ public class Bean implements Serializable {
         modelForUpdate.setGender(person.getGender());
         dateForUpdate = new Date(person.getDateOfBirth().getTime());
         genderForUpdate = person.getGender();
-        System.out.println(modelForUpdate);
+        model = person;
     }
 }

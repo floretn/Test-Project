@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.PeopleMapper">
+<mapper namespace="PeopleMapper">
 
-    <resultMap id="PeopleMap" type="dao.model.Model">
+    <resultMap id="PeopleMap" type="model.Model">
         <id column="id_person" property="personId"/>
         <result column="last_name" property="lastName"/>
         <result column="first_name" property="firstName"/>
@@ -22,21 +22,12 @@
     </select>
 
 
-    <insert id="insertPerson" keyColumn="person_id" keyProperty="personId" parameterType="model.Model" useGeneratedKeys="true"  >
+    <insert id="insertPerson" keyColumn="id_person" keyProperty="person.personId" useGeneratedKeys="true"  >
         insert into people.people (last_name, first_name, patronymic, date_of_birth, gender)
         values (#{person.lastName}, #{person.firstName}, #{person.patronymic}, #{person.dateOfBirth},
         #{person.gender, jdbcType=VARCHAR}::Gender);
         commit;
-        <!--returning id_person;-->
     </insert>
-
-    <!--
-    <select id="insertPerson" resultType="java.lang.Integer">
-        select * from insert_in_table(#{person.lastName}, #{person.firstName}, #{person.patronymic}, #{person.dateOfBirth},
-        #{person.gender, jdbcType=VARCHAR}::Gender);
-        commit;
-    </select>
-    -->
 
     <delete id="deletePerson">
         delete from people.people where id_person = #{id};

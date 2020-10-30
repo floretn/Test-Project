@@ -23,7 +23,7 @@
                     </span>
                 <br/><br/>
                 <span class="ui-float-label">
-                    <p:inputText id="float-insert_firstName" value="#{bean.modelForInsert.firstName}"/>
+                    <p:inputText id="float-insert_firstName" value="#{bean.modelForInsert.firstName}"/>/>
                     <p:outputLabel for="@previous" value="Внесите имя: "/>
                     </span>
                 <br/><br/>
@@ -43,7 +43,7 @@
                 <br/><br/>
                 <p:commandButton value="Принять изменения" id="insertDo"
                                  action="#{bean.insertPerson()}" ajax="true" update="form"/>
-            </p:panel>
+            </p:panel>            
         </p:dialog>
         <br/><br/>
         <p:dataTable id="table" var="person" value="#{bean.models}">
@@ -67,7 +67,7 @@
             </p:column>
             <p:column headerText="Действия">
                 <p:commandButton value="Изменить" id="updateBtn" action="#{bean.prepareForUpdate(person)}"
-                                 ajax="true" onclick="PF('forUpdateDlg').show();"/>
+                                 ajax="true" onclick="PF('updateDlg').show();" />
                 <p:commandButton value="Удалить" id="delete" action="#{bean.deletePerson(person)}"
                                  ajax="true" update="table"/>
             </p:column>
