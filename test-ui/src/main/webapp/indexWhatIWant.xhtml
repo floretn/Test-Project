@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:test="http://xmlns.jcp.org/jsf/composite/test"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Как в моём понимании должен выглядеть мой файл index.xhtml -->
+<h:head>
+    <title>Работа с Базой Данных</title>
+</h:head>
+<h:body>
+    <f:view>
+        <h2>#{bean.msg}</h2>
+        <h:form id="form">
+            <p:commandButton value="Упорядочить по дате рождения" id="sort" action="#{bean.sort()}" ajax="true" update="form"/>
+            <p:commandButton value="Добавить информацию о новом человеке" id="insertBtn" ajax="true"
+                             action="#{bean.prepareForInsert}" onclick="PF('insertDlg').show();"/>
+
+            <test:table id="table" update="form" onclick="PF('updateDlg').show();"/>
+
+            <p:dialog header="Внесение данных" widgetVar="insertDlg" height="500">
+                <test:upsertPerson id="insertPerson" lastNameLabel="Введите фамилию" lastNameValue="#{bean.modelForInsert.lastName}"
+                                   firstNameLabel="Введите имя" firstNameValue="#{bean.modelForInsert.firstName}"
+                                   patronymicLabel="Введите отчество" patronymicValue="#{bean.modelForInsert.patronymic}"
+                                   dateLabel="Внесите дату рождения" dateValue="#{bean.dateForInsert}"
+                                   genderLabel="Отметьте пол" genderValue="#{bean.genderForInsert}"
+                                   action="#{bean.insertPerson()}" update="form"/>
+            </p:dialog>
+
+            <p:dialog header="Изменение данных" widgetVar="updateDlg" height="500">
+                <test:upsertPerson id="updatePerson" lastNameLabel="Измените фамилию" lastNameValue="#{bean.modelForUpdate.lastName}"
+                                   firstNameLabel="Измените имя" firstNameValue="#{bean.modelForUpdate.firstName}"
+                                   patronymicLabel="Измените отчество" patronymicValue="#{bean.modelForUpdate.patronymic}"
+                                   dateLabel="Измените дату рождения" dateValue="#{bean.dateForUpdate}"
+                                   genderLabel="Измените пол" genderValue="#{bean.genderForUpdate}"
+                                   action="#{bean.updatePerson()}" update="form"/>
+            </p:dialog>
+
+        </h:form>
+    </f:view>
+</h:body>
+</html>

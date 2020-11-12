@@ -2,7 +2,6 @@
 
 drop schema if exists "people" cascade;
 drop type if exists "gender" cascade;
-drop function if exists insert_in_table(varchar, varchar, varchar, date, gender);
 
 create schema "people";
 
@@ -18,23 +17,6 @@ CREATE TABLE people.people
 	gender			gender,
 	PRIMARY KEY (id_person) 
 );
-
-create or replace function insert_in_table
-(in lastName varchar,
-in firstName varchar,
-in patron varchar,
-in date_birth date,
-in gen gender, 
-out p2 int) as 
-$BODY$
-begin
-  insert into people.people(last_name, first_name, patronymic, date_of_birth, gender)
-  values(lastName, firstName, patron, date_birth, gen)
-  returning id_person into p2;
-  return;
-end;
-$BODY$
-language plpgsql;
 ------------------------------------------------------------------------------------------
 
 INSERT INTO people.people (last_name, first_name, patronymic, date_of_birth, gender) 

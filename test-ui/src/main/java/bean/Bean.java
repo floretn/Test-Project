@@ -3,8 +3,10 @@ package bean;
 import dao.methods.Methods;
 import model.Model;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -138,15 +140,12 @@ public class Bean implements Serializable {
     }
 
     public void insertPerson(){
-        if(modelForInsert.getLastName() != null && modelForInsert.getFirstName() != null) {
-            modelForInsert.setDateOfBirth(new java.sql.Date(dateForInsert.getTime()));
-            modelForInsert.setGender(genderForInsert);
-            models.add(modelForInsert);
-            methods.insertPerson(modelForInsert);
-            check = modelForInsert.getLastName() + " " + modelForInsert.getFirstName() + " успешно добавлен!";
-        }else{
-            check = "Фамилия и Имя обязательны для заполнения!";
-        }
+        modelForInsert.setDateOfBirth(new java.sql.Date(dateForInsert.getTime()));
+        modelForInsert.setGender(genderForInsert);
+        models.add(modelForInsert);
+        methods.insertPerson(modelForInsert);
+        check = modelForInsert.getLastName() + " " + modelForInsert.getFirstName() + " успешно добавлен!";
+        System.out.println("Дело сделано");
     }
 
     public void prepareForInsert(){
