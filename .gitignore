@@ -1,8 +1,8 @@
 .gitignore
-target/
-out/
+target/*
+out/*
 *.class
-lib/
+lib/*
 *.jar
 *.war
 .idea
