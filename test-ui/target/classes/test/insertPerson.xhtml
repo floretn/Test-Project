@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:test="http://xmlns.jcp.org/jsf/composite/test"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Для использования как <ui:include> для добавления нового человека в таблицу.
+    Предполагается, что я могу сделать ещё один такой же файл, только для update
+    1 проблема: добавляет нового человека при каждом обновлении страницы
+    2 проблема: не могу придумать, как обновлять insertPanel из index.xhtml-->
+    <p:panel id="insertPanel">
+        <h3>Внесите данные:</h3>
+        <span class="ui-float-label">
+                    <p:inputText id="float-insert_lastName" value="#{bean.modelForInsert.lastName}"/>
+                    <p:outputLabel for="@previous" value="Внесите фамилию: "/>
+                    </span>
+        <br/><br/>
+        <span class="ui-float-label">
+                    <p:inputText id="float-insert_firstName" value="#{bean.modelForInsert.firstName}"/>/>
+                    <p:outputLabel for="@previous" value="Внесите имя: "/>
+                    </span>
+        <br/><br/>
+        <span class="ui-float-label">
+                    <p:inputText id="float-insert_patronymic" value="#{bean.modelForInsert.patronymic}"/>
+                    <p:outputLabel for="@previous" value="Внесите отчество: "/>
+                    </span>
+        <br/><br/>
+        <p:outputLabel for="insert_dateBirth" value="Внесите дату рождения: "/>
+        <p:datePicker id="insert_dateBirth" value="#{bean.dateForInsert}"/>
+        <br/><br/>
+        <p:outputLabel for="insert_gender" value="Внесите пол:"/>
+        <p:selectOneRadio id="insert_gender" value="#{bean.genderForInsert}">
+            <f:selectItem itemLabel="М" itemValue="#{bean.genderM}"/>
+            <f:selectItem itemLabel="Ж" itemValue="#{bean.genderW}"/>
+        </p:selectOneRadio>
+        <br/><br/>
+        <p:commandButton value="Принять изменения" id="insertDo"
+                         action="#{bean.insertPerson()}" ajax="true" update="form"/>
+    </p:panel>
+</ui:composition>

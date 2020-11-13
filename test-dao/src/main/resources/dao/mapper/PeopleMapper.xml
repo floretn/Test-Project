@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PeopleMapper">
+
+    <resultMap id="PeopleMap" type="model.Model">
+        <id column="id_person" property="personId"/>
+        <result column="last_name" property="lastName"/>
+        <result column="first_name" property="firstName"/>
+        <result column="patronymic" property="patronymic"/>
+        <result column="date_of_birth" property="dateOfBirth"/>
+        <result column="gender" property="gender"/>
+    </resultMap>
+
+    <select id="selectPerson" resultMap="PeopleMap">
+    select * from people.people where id_person = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="PeopleMap">
+    select * from people.people
+    </select>
+
+
+    <insert id="insertPerson" keyColumn="id_person" keyProperty="person.personId" useGeneratedKeys="true"  >
+        insert into people.people (last_name, first_name, patronymic, date_of_birth, gender)
+        values (#{person.lastName}, #{person.firstName}, #{person.patronymic}, #{person.dateOfBirth},
+        #{person.gender, jdbcType=VARCHAR}::Gender);
+        commit;
+    </insert>
+
+    <delete id="deletePerson">
+        delete from people.people where id_person = #{id};
+        commit;
+    </delete>
+
+    <update id="updatePerson">
+        update people.people set last_name = #{person.lastName}, first_name = #{person.firstName},
+        patronymic = #{person.patronymic}, date_of_birth = #{person.dateOfBirth},
+        gender = #{person.gender, jdbcType=VARCHAR}::Gender where id_person = #{id};
+        commit;
+    </update>
+
+</mapper>
