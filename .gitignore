@@ -1,9 +1,0 @@
-.gitignore
-target/*
-out/*
-*.class
-lib/*
-*.jar
-*.war
-.idea
-*.iml
