@@ -17,25 +17,14 @@ public class Bean implements Serializable {
 
     private final Model.Gender genderM = Model.Gender.М;
     private final Model.Gender genderW = Model.Gender.Ж;
-    private Model.Gender genderForUpdate = genderM;
-    private Model.Gender genderForInsert = genderM;
     private String msg;
     private List<Model> models;
     private Model modelForUpdate;
     private Model modelForInsert;
     private Model model;
-    private Date dateForUpdate = new Date();
-    private Date dateForInsert = new Date();
-    private String check = "";
     private Methods methods;
-
-    public Model.Gender getGenderForUpdate() {
-        return genderForUpdate;
-    }
-
-    public void setGenderForUpdate(Model.Gender genderForUpdate) {
-        this.genderForUpdate = genderForUpdate;
-    }
+    private HelpForDateAndGender helpForInsert = new HelpForDateAndGender();
+    private HelpForDateAndGender helpForUpdate = new HelpForDateAndGender();
 
     public Model.Gender getGenderM() {
         return genderM;
@@ -47,10 +36,6 @@ public class Bean implements Serializable {
 
     public String getMsg() {
         return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     public List<Model> getModels() {
@@ -77,36 +62,20 @@ public class Bean implements Serializable {
         this.modelForInsert = modelForInsert;
     }
 
-    public Date getDateForUpdate() {
-        return dateForUpdate;
+    public HelpForDateAndGender getHelpForInsert() {
+        return helpForInsert;
     }
 
-    public void setDateForUpdate(Date dateForUpdate) {
-        this.dateForUpdate = dateForUpdate;
+    public void setHelpForInsert(HelpForDateAndGender helpForInsert) {
+        this.helpForInsert = helpForInsert;
     }
 
-    public Model.Gender getGenderForInsert() {
-        return genderForInsert;
+    public HelpForDateAndGender getHelpForUpdate() {
+        return helpForUpdate;
     }
 
-    public void setGenderForInsert(Model.Gender genderForInsert) {
-        this.genderForInsert = genderForInsert;
-    }
-
-    public Date getDateForInsert() {
-        return dateForInsert;
-    }
-
-    public void setDateForInsert(Date dateForInsert) {
-        this.dateForInsert = dateForInsert;
-    }
-
-    public String getCheck() {
-        return check;
-    }
-
-    public void setCheck(String check) {
-        this.check = check;
+    public void setHelpForUpdate(HelpForDateAndGender helpForUpdate) {
+        this.helpForUpdate = helpForUpdate;
     }
 
     @PostConstruct
@@ -116,6 +85,10 @@ public class Bean implements Serializable {
             models = methods.showAll();
             modelForUpdate = Model.builder().lastName("").firstName("").patronymic("").build();
             modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
+            helpForUpdate.setGender(Model.Gender.М);
+            helpForInsert.setGender(Model.Gender.М);
+            helpForUpdate.setDate(new Date());
+            helpForInsert.setDate(new Date());
         } catch (Exception e) {
             msg = "Не удалось подключиться к БД:(";
             return;
@@ -132,26 +105,35 @@ public class Bean implements Serializable {
         methods.sort(models);
     }
 
+    public void upsertPerson(Model person){
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("Изменения приняты! \nОбновите таблицу..."));
+        if(person == modelForInsert){
+            insertPerson();
+        }else{
+            updatePerson();
+        }
+    }
+
     public void updatePerson(){
-        modelForUpdate.setDateOfBirth(new java.sql.Date(dateForUpdate.getTime()));
-        modelForUpdate.setGender(genderForUpdate);
+        modelForUpdate.setDateOfBirth(new java.sql.Date(helpForUpdate.getDate().getTime()));
+        modelForUpdate.setGender(helpForUpdate.getGender());
         methods.updatePerson(modelForUpdate.getPersonId(), modelForUpdate);
         models.set(models.indexOf(model), modelForUpdate);
     }
 
     public void insertPerson(){
-        modelForInsert.setDateOfBirth(new java.sql.Date(dateForInsert.getTime()));
-        modelForInsert.setGender(genderForInsert);
+        modelForInsert.setDateOfBirth(new java.sql.Date(helpForInsert.getDate().getTime()));
+        modelForInsert.setGender(helpForInsert.getGender());
         models.add(modelForInsert);
         methods.insertPerson(modelForInsert);
-        check = modelForInsert.getLastName() + " " + modelForInsert.getFirstName() + " успешно добавлен!";
-        System.out.println("Дело сделано");
+        prepareForInsert();
     }
 
     public void prepareForInsert(){
-        dateForInsert = new Date();
+        helpForInsert.setDate(new Date());
+        helpForInsert.setGender(helpForInsert.getGenderM());
         modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
-        genderForInsert = genderM;
     }
 
     public void prepareForUpdate(Model person){
@@ -159,10 +141,10 @@ public class Bean implements Serializable {
         modelForUpdate.setLastName("" + person.getLastName());
         modelForUpdate.setFirstName("" + person.getFirstName());
         modelForUpdate.setPatronymic("" + person.getPatronymic());
-        modelForUpdate.setDateOfBirth(person.getDateOfBirth());
+        modelForUpdate.setDateOfBirth(new java.sql.Date(person.getDateOfBirth().getTime()));
         modelForUpdate.setGender(person.getGender());
-        dateForUpdate = new Date(person.getDateOfBirth().getTime());
-        genderForUpdate = person.getGender();
+        helpForUpdate.setDate(new Date(person.getDateOfBirth().getTime()));
+        helpForUpdate.setGender(person.getGender());
         model = person;
     }
 }

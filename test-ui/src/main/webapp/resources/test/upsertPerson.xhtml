@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<f:view  xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:h="http://java.sun.com/jsf/html"
-       xmlns:f="http://java.sun.com/jsf/core"
-       xmlns:p="http://primefaces.org/ui"
-       xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-       xmlns:ui="http://java.sun.com/jsf/facelets">
-
-    <!-- Для использования как <test:upsertPerson> с параметрами
-    1 проблема: добавляет нового человека при каждом обновлении страницы (если использовать как insert)
-    А если использовать как update, то вываливается ошибка java.lang.ArrayIndexOutOfBoundsException: -1
-    Так как он пытается обновить пустого человека (в методе updatePerson)
-    2 проблема: компонент не отображается-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite">
 
     <composite:interface>
-        <composite:attribute name = "id" />
-        <composite:attribute name = "lastNameLabel" />
-        <composite:attribute name = "lastNameValue" />
-        <composite:attribute name = "firstNameLabel" />
-        <composite:attribute name = "firstNameValue" />
-        <composite:attribute name = "patronymicLabel" />
-        <composite:attribute name = "patronymicValue" />
-        <composite:attribute name = "dateLabel" />
-        <composite:attribute name = "dateValue" />
-        <composite:attribute name = "genderLabel" />
-        <composite:attribute name = "genderValue" />
-        <composite:attribute name="action"/>
-        <composite:attribute name="update"/>
+        <composite:attribute name = "person" type="model.Model"/>
+        <composite:attribute name = "header"/>
+        <composite:attribute name = "widgetVar"/>
+        <composite:attribute name = "dataAndGender" type="bean.HelpForDateAndGender"/>
+        <composite:attribute name = "beanLink" type="bean.Bean"/>
     </composite:interface>
 
     <composite:implementation>
-            <p:panel id="#{cc.attrs.id}">
-                <span class="ui-float-label">
-                    <p:inputText id="float-upsert_lastName" value="#{cc.attrs.lastNameValue}"/>
-                    <p:outputLabel for="@previous" value="#{cc.attrs.lastNameLabel}"/>
-                </span>
-                <br/><br/>
-                <span class="ui-float-label">
-                    <p:inputText id="float-upsert_firstName" value="#{cc.attrs.firstNameValue}"/>/>
-                    <p:outputLabel for="@previous" value="#{cc.attrs.firstNameLabel}"/>
-                </span>
-                <br/><br/>
-                <span class="ui-float-label">
-                    <p:inputText id="float-upsert_patronymic" value="#{cc.attrs.patronymicValue}"/>
-                    <p:outputLabel for="@previous" value="#{cc.attrs.patronymicLabel}"/>
-                </span>
-                <br/><br/>
-                <p:outputLabel for="upsert_dateBirth" value="#{cc.attrs.dateLabel}"/>
-                <p:datePicker id="insert_dateBirth" value="#{cc.attrs.dateValue}"/>
-                <br/><br/>
-                <p:outputLabel for="upsert_gender" value="#{cc.attrs.genderLabel}"/>
-                <p:selectOneRadio id="upsert_gender" value="#{cc.attrs.genderValue}">
-                    <f:selectItem itemLabel="М" itemValue="#{bean.genderM}"/>
-                    <f:selectItem itemLabel="Ж" itemValue="#{bean.genderW}"/>
-                </p:selectOneRadio>
-                <br/><br/>
-                <p:commandButton value="Принять изменения" id="upsertDo"
-                                 action="#{cc.attrs.action}" ajax="true" update="#{cc.attrs.update}"/>
-            </p:panel>
+        <h:form id="formUps">
+            <p:dialog header="#{cc.attrs.header}" widgetVar="#{cc.attrs.widgetVar}" height="500">
+                <p:panel id="upsPanel">
+                    <br/>
+                    <p:messages id="msgs" />
+                    <br/>
+                    <span class="ui-float-label">
+                    <p:inputText id="float-upsert_lastName" value="#{cc.attrs.person.lastName}" required="true"
+                                 requiredMessage="Фамилия обязательна!">
+                        <f:validateLength minimum="2" />
+                        <p:clientValidator event="change"  update="msgs"/>
+                    </p:inputText>
+                    <p:outputLabel for="@previous" value="Фамилия"/>
+                    </span>
+                    <br/>
+                    <span class="ui-float-label">
+                    <p:inputText id="float-upsert_firstName" value="#{cc.attrs.person.firstName}"  required="true"
+                                 requiredMessage="Имя обязательно!">
+                        <f:validateLength minimum="4" />
+                        <p:clientValidator event="change"  update="msgs"/>
+                    </p:inputText>
+                    <p:outputLabel for="@previous" value="Имя"/>
+                    </span>
+                    <br/>
+                    <span class="ui-float-label">
+                    <p:inputText id="float-upsert_patronymic" value="#{cc.attrs.person.patronymic}"/>
+                    <p:outputLabel for="@previous" value="Отчество"/>
+                    </span>
+                    <br/>
+                    <p:outputLabel for="upsert_dateBirth" value="Дата рождения: "/>
+                    <br/>
+                    <p:datePicker id="upsert_dateBirth" value="#{cc.attrs.dataAndGender.date}"  required="true"
+                                  requiredMessage="Дата обязательна!"/>
+                    <p:clientValidator event="change"  update="msgs"/>
+                    <br/><br/>
+                    <p:outputLabel for="upsert_gender" value="Пол: "/>
+                    <p:selectOneRadio id="upsert_gender" value="#{cc.attrs.dataAndGender.gender}">
+                        <f:selectItem itemLabel="М" itemValue="#{cc.attrs.dataAndGender.genderM}"/>
+                        <f:selectItem itemLabel="Ж" itemValue="#{cc.attrs.dataAndGender.genderW}"/>
+                    </p:selectOneRadio>
+                    <p:commandButton value="Принять изменения" id="upsertDo"  process="@all"
+                                     action="#{bean.upsertPerson(cc.attrs.person)}" ajax="true"
+                                     icon="fa fa-check" update="upsPanel"/>
+                </p:panel>
+            </p:dialog>
+        </h:form>
     </composite:implementation>
-
-</f:view>
+</html>

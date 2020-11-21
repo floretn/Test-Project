@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<f:view  xmlns="http://www.w3.org/1999/xhtml"
-         xmlns:h="http://java.sun.com/jsf/html"
-         xmlns:f="http://java.sun.com/jsf/core"
-         xmlns:p="http://primefaces.org/ui"
-         xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-         xmlns:ui="http://java.sun.com/jsf/facelets">
+<html  xmlns = "http://www.w3.org/1999/xhtml"
+       xmlns:h = "http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:composite = "http://java.sun.com/jsf/composite">
 
-    <!-- Проблема одна: компонент не отображается-->
     <composite:interface>
-        <composite:attribute name = "id" />
         <composite:attribute name="update"/>
         <composite:attribute name="onclick"/>
     </composite:interface>
 
     <composite:implementation>
-        <p:dataTable id="#{cc.attrs.id}" var="person" value="#{bean.models}">
-            <p:column headerText="id">
-                <h:outputText value="#{person.personId}"/>
-            </p:column>
-            <p:column headerText="Фамилия">
-                <h:outputText value="#{person.lastName}"/>
-            </p:column>
-            <p:column headerText="Имя">
-                <h:outputText value="#{person.firstName}"/>
-            </p:column>
-            <p:column headerText="Отчество">
-                <h:outputText value="#{person.patronymic}"/>
-            </p:column>
-            <p:column headerText="Дата рождения">
-                <h:outputText value="#{person.dateOfBirth}"/>
-            </p:column>
-            <p:column headerText="Пол">
-                <h:outputText value="#{person.gender}"/>
-            </p:column>
-            <p:column headerText="Действия">
-                <p:commandButton value="Изменить" id="updateBtn" action="#{bean.prepareForUpdate(person)}"
-                                 ajax="true" onclick="#{cc.attrs.onclick}"  update="#{cc.attrs.update}"/>
-                <p:commandButton value="Удалить" id="delete" action="#{bean.deletePerson(person)}"
-                                 ajax="true" update="table"/>
-            </p:column>
-        </p:dataTable>
+        <h:form id="tableForm">
+            <p:dataTable id="table" var="person" value="#{bean.models}">
+                <p:column headerText="id">
+                    <h:outputText value="#{person.personId}"/>
+                </p:column>
+                <p:column headerText="Фамилия">
+                    <h:outputText value="#{person.lastName}"/>
+                </p:column>
+                <p:column headerText="Имя">
+                    <h:outputText value="#{person.firstName}"/>
+                </p:column>
+                <p:column headerText="Отчество">
+                    <h:outputText value="#{person.patronymic}"/>
+                </p:column>
+                <p:column headerText="Дата рождения">
+                    <h:outputText value="#{person.dateOfBirth}"/>
+                </p:column>
+                <p:column headerText="Пол">
+                    <h:outputText value="#{person.gender}"/>
+                </p:column>
+                <p:column headerText="Действия">
+                    <p:commandButton id="updateBtn" action="#{bean.prepareForUpdate(person)}"
+                                     ajax="true" onclick="#{cc.attrs.onclick}" update="#{cc.attrs.update}"
+                                     icon="fa fa-pencil"/>
+                    <p:commandButton id="delete" action="#{bean.deletePerson(person)}"
+                                     ajax="true" update="table"  icon="fa fa-trash"/>
+                    <p:commandButton id="updateTable" ajax="true" update="table"  icon="fa fa-refresh"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </composite:implementation>
-</f:view>
+</html>
