@@ -17,7 +17,7 @@ public class Model implements Serializable {
     private Gender gender;
 
     public enum Gender {
-        М,
-        Ж
+        M,
+        W
     }
 }

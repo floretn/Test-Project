@@ -15,8 +15,8 @@ import java.util.List;
 @ViewScoped
 public class Bean implements Serializable {
 
-    private final Model.Gender genderM = Model.Gender.М;
-    private final Model.Gender genderW = Model.Gender.Ж;
+    private final Model.Gender genderM = Model.Gender.M;
+    private final Model.Gender genderW = Model.Gender.W;
     private String msg;
     private List<Model> models;
     private Model modelForUpdate;
@@ -85,12 +85,13 @@ public class Bean implements Serializable {
             models = methods.showAll();
             modelForUpdate = Model.builder().lastName("").firstName("").patronymic("").build();
             modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
-            helpForUpdate.setGender(Model.Gender.М);
-            helpForInsert.setGender(Model.Gender.М);
+            helpForUpdate.setGender(Model.Gender.M);
+            helpForInsert.setGender(Model.Gender.M);
             helpForUpdate.setDate(new Date());
             helpForInsert.setDate(new Date());
         } catch (Exception e) {
-            msg = "Не удалось подключиться к БД:(";
+            msg = "Can't connect to the Database:(";
+            e.printStackTrace();
             return;
         }
         msg = "Work...";
@@ -107,7 +108,7 @@ public class Bean implements Serializable {
 
     public void upsertPerson(Model person){
         FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("Изменения приняты! \nОбновите таблицу..."));
+                new FacesMessage("Изменения приняты! Обновите таблицу..."));
         if(person == modelForInsert){
             insertPerson();
         }else{

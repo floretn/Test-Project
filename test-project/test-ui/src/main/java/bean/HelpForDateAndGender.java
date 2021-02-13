@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class HelpForDateAndGender {
 
-    private final Model.Gender genderM = Model.Gender.М;
-    private final Model.Gender genderW = Model.Gender.Ж;
+    private final Model.Gender genderM = Model.Gender.M;
+    private final Model.Gender genderW = Model.Gender.W;
     private Date date;
     private Model.Gender gender;
 
