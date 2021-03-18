@@ -1,18 +1,22 @@
 package bean;
 
-import dao.methods.Methods;
+import dao.init.Initial;
+import dao.mapper.PeopleMapper;
+import lombok.Data;
 import model.Model;
+import org.apache.ibatis.session.SqlSession;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 
 @ManagedBean(name="bean")
 @ViewScoped
+@Data
 public class Bean implements Serializable {
 
     private final Model.Gender genderM = Model.Gender.M;
@@ -22,73 +26,17 @@ public class Bean implements Serializable {
     private Model modelForUpdate;
     private Model modelForInsert;
     private Model model;
-    private Methods methods;
-    private HelpForDateAndGender helpForInsert = new HelpForDateAndGender();
-    private HelpForDateAndGender helpForUpdate = new HelpForDateAndGender();
-
-    public Model.Gender getGenderM() {
-        return genderM;
-    }
-
-    public Model.Gender getGenderW() {
-        return genderW;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public List<Model> getModels() {
-        return models;
-    }
-
-    public void setModels(List<Model> models) {
-        this.models = models;
-    }
-
-    public Model getModelForUpdate() {
-        return modelForUpdate;
-    }
-
-    public void setModelForUpdate(Model modelForUpdate) {
-        this.modelForUpdate = modelForUpdate;
-    }
-
-    public Model getModelForInsert() {
-        return modelForInsert;
-    }
-
-    public void setModelForInsert(Model modelForInsert) {
-        this.modelForInsert = modelForInsert;
-    }
-
-    public HelpForDateAndGender getHelpForInsert() {
-        return helpForInsert;
-    }
-
-    public void setHelpForInsert(HelpForDateAndGender helpForInsert) {
-        this.helpForInsert = helpForInsert;
-    }
-
-    public HelpForDateAndGender getHelpForUpdate() {
-        return helpForUpdate;
-    }
-
-    public void setHelpForUpdate(HelpForDateAndGender helpForUpdate) {
-        this.helpForUpdate = helpForUpdate;
-    }
+    private HelpForGender helpForInsert = new HelpForGender();
+    private HelpForGender helpForUpdate = new HelpForGender();
 
     @PostConstruct
     private void init() {
-        try {
-            methods = new Methods();
-            models = methods.showAll();
+        try (SqlSession sqlSession = Initial.SQL_SESSION_FACTORY.openSession()) {
+            models = sqlSession.getMapper(PeopleMapper.class).selectAll();
             modelForUpdate = Model.builder().lastName("").firstName("").patronymic("").build();
             modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
             helpForUpdate.setGender(Model.Gender.M);
             helpForInsert.setGender(Model.Gender.M);
-            helpForUpdate.setDate(new Date());
-            helpForInsert.setDate(new Date());
         } catch (Exception e) {
             msg = "Can't connect to the Database:(";
             e.printStackTrace();
@@ -98,12 +46,14 @@ public class Bean implements Serializable {
     }
 
     public void deletePerson(Model person){
-        methods.deletePerson(person.getPersonId());
+        try (SqlSession sqlSession = Initial.SQL_SESSION_FACTORY.openSession()) {
+            sqlSession.getMapper(PeopleMapper.class).deletePerson(person.getPersonId());
+        }
         models.remove(person);
     }
 
     public void sort(){
-        methods.sort(models);
+        models.sort(Comparator.comparing(Model::getDateOfBirth));
     }
 
     public void upsertPerson(Model person){
@@ -117,22 +67,23 @@ public class Bean implements Serializable {
     }
 
     public void updatePerson(){
-        modelForUpdate.setDateOfBirth(new java.sql.Date(helpForUpdate.getDate().getTime()));
         modelForUpdate.setGender(helpForUpdate.getGender());
-        methods.updatePerson(modelForUpdate.getPersonId(), modelForUpdate);
+        try (SqlSession sqlSession = Initial.SQL_SESSION_FACTORY.openSession()) {
+            sqlSession.getMapper(PeopleMapper.class).updatePerson(modelForUpdate.getPersonId(), modelForUpdate);
+        }
         models.set(models.indexOf(model), modelForUpdate);
     }
 
     public void insertPerson(){
-        modelForInsert.setDateOfBirth(new java.sql.Date(helpForInsert.getDate().getTime()));
         modelForInsert.setGender(helpForInsert.getGender());
         models.add(modelForInsert);
-        methods.insertPerson(modelForInsert);
+        try (SqlSession sqlSession = Initial.SQL_SESSION_FACTORY.openSession()) {
+            sqlSession.getMapper(PeopleMapper.class).insertPerson(modelForInsert);
+        }
         prepareForInsert();
     }
 
     public void prepareForInsert(){
-        helpForInsert.setDate(new Date());
         helpForInsert.setGender(helpForInsert.getGenderM());
         modelForInsert = Model.builder().lastName("").firstName("").patronymic("").build();
     }
@@ -144,7 +95,6 @@ public class Bean implements Serializable {
         modelForUpdate.setPatronymic("" + person.getPatronymic());
         modelForUpdate.setDateOfBirth(new java.sql.Date(person.getDateOfBirth().getTime()));
         modelForUpdate.setGender(person.getGender());
-        helpForUpdate.setDate(new Date(person.getDateOfBirth().getTime()));
         helpForUpdate.setGender(person.getGender());
         model = person;
     }

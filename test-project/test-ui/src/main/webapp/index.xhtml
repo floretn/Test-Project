@@ -27,9 +27,9 @@
     <tp:table id="table" update="update:formUps:upsPanel" onclick="PF('updateDlg').show();"/>
 
     <tp:upsertPerson id="insert" person="#{bean.modelForInsert}"
-                     dataAndGender="#{bean.helpForInsert}" widgetVar="insertDlg" header="Внесение данных" />
+                     gender="#{bean.helpForInsert}" widgetVar="insertDlg" header="Внесение данных" />
 
     <tp:upsertPerson id="update" person="#{bean.modelForUpdate}"
-                     dataAndGender="#{bean.helpForUpdate}"  widgetVar="updateDlg" header="Изменение данных" />
+                     gender="#{bean.helpForUpdate}"  widgetVar="updateDlg" header="Изменение данных" />
 </h:body>
 </html>

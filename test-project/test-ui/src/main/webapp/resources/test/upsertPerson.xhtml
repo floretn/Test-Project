@@ -9,7 +9,7 @@
         <composite:attribute name = "person" type="model.Model"/>
         <composite:attribute name = "header"/>
         <composite:attribute name = "widgetVar"/>
-        <composite:attribute name = "dataAndGender" type="bean.HelpForDateAndGender"/>
+        <composite:attribute name ="gender" type="bean.HelpForGender"/>
         <composite:attribute name = "beanLink" type="bean.Bean"/>
     </composite:interface>
 
@@ -45,14 +45,14 @@
                     <br/>
                     <p:outputLabel for="upsert_dateBirth" value="Дата рождения: "/>
                     <br/>
-                    <p:datePicker id="upsert_dateBirth" value="#{cc.attrs.dataAndGender.date}"  required="true"
+                    <p:datePicker id="upsert_dateBirth" value="#{cc.attrs.person.dateOfBirth}"  required="true"
                                   requiredMessage="Дата обязательна!"/>
                     <p:clientValidator event="change"  update="msgs"/>
                     <br/><br/>
                     <p:outputLabel for="upsert_gender" value="Пол: "/>
-                    <p:selectOneRadio id="upsert_gender" value="#{cc.attrs.dataAndGender.gender}">
-                        <f:selectItem itemLabel="М" itemValue="#{cc.attrs.dataAndGender.genderM}"/>
-                        <f:selectItem itemLabel="Ж" itemValue="#{cc.attrs.dataAndGender.genderW}"/>
+                    <p:selectOneRadio id="upsert_gender" value="#{cc.attrs.gender.gender}">
+                        <f:selectItem itemLabel="М" itemValue="#{cc.attrs.gender.genderM}"/>
+                        <f:selectItem itemLabel="Ж" itemValue="#{cc.attrs.gender.genderW}"/>
                     </p:selectOneRadio>
                     <p:commandButton value="Принять изменения" id="upsertDo"  process="@all"
                                      action="#{bean.upsertPerson(cc.attrs.person)}" ajax="true"
